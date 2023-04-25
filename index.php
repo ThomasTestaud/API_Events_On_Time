@@ -16,7 +16,8 @@ if (array_key_exists('route', $_GET)) {
 
         case 'dashboard':
             $controller = new Models\Articles();
-            $controller->getAllArticles();
+            $result = $controller->getAllArticles();
+            echo $result;
             break;
 
         default:
