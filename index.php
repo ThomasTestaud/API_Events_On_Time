@@ -14,18 +14,21 @@ if (array_key_exists('route', $_GET)) {
 
     switch ($_GET['route']) {
 
-        case 'dashboard':
+        case 'api':
             $controller = new Models\Articles();
             $result = $controller->getAllArticles();
-            echo $result;
+            var_dump($result);
+            foreach ($result as $res) {
+                echo $res;
+            }
             break;
 
         default:
-            header('Location: index.php?route=dashboard');
+            header('Location: index.php?route=api');
             exit;
             break;
     }
 } else {
-    header('Location: index.php?route=dashboard');
+    header('Location: index.php?route=api');
     exit;
 }
