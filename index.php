@@ -14,7 +14,7 @@ if (array_key_exists('route', $_GET)) {
 
         case 'api':
             $controller = new Models\Database();
-            $result = $controller->getAllComp(0);
+            $result = $controller->getAllComp($_GET['user']);
             $json = json_encode($result);
             header('Content-Type: application/json');
             echo ($json);
