@@ -1,0 +1,823 @@
+@font-face {
+    font-family: "climatecrisis";
+    weight: 400;
+    src: url("../fonts/climatecrisis-regular-variablefont_year-webfont.woff2") format("woff2"),
+    url("../fonts/climatecrisis-regular-variablefont_year-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: "Roboto";
+    weight: 400;
+    src: url("../fonts/roboto-medium-webfont.woff2") format("woff2"),
+    url("../fonts/roboto-medium-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    weight: 200;
+    src: url("./assets/fonts/roboto-light-webfont.woff2") format("woff2"),
+    url("./assets/fonts/roboto-light-webfont.woff") format("woff");
+    font-weight: light;
+    font-style: light;
+}
+
+:root {
+    --main-background: rgb(225, 228, 234);
+    --theme-main: #007BE0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    font-family: Roboto, sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+    font-size: 16px;
+}
+
+body {
+    color: #000814;
+    font-weight: normal;
+    background-color: var(--main-background);
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    font-family: Roboto, sans-serif;
+    line-height: 2em;
+}
+
+h1 {
+    display: none;
+    font-family: climatecrisis,
+    sans-serif;
+}
+
+a img {
+    height: 2rem;
+    width: 2rem;
+    margin: 0rem 0.5rem;
+}
+
+
+
+main {
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    transition: text-decoration 0.5s;
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+textarea {
+    font-family: sans-serif;
+    font-size: 1rem;
+}
+
+.none {
+    display: none;
+}
+
+/***************************************************************************************************************************************
+HEADER
+***********************************************************************************************************************************/
+
+header {
+    position: sticky;
+    width: 100%;
+    top: 0px;
+    background-color: #007BE0;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 2px;
+    padding: 0.3rem;
+    text-align: center;
+    z-index: 2;
+}
+
+header a {
+    text-decoration: none;
+    color: white;
+}
+
+header form {
+    margin: auto;
+    width: 80%;
+    padding: 0rem;
+}
+
+#search-form span {
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid white;
+    border-radius: 3em;
+    width: 100%;
+}
+
+#search-form svg {
+    height: 1rem;
+    margin-right: 1rem;
+}
+
+header form input {
+    padding: 0em;
+    background-color: rgba(255, 255, 255, 0);
+    border: 0px solid white;
+    width: 100%;
+    color: white;
+}
+
+header form input:focus {
+    outline: 0;
+}
+
+.search-window {
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 3;
+    border-radius: 1rem;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 2px;
+    max-height: 70vh;
+    max-width: 30rem;
+    overflow: scroll;
+}
+
+.search-window::-webkit-scrollbar {
+    display: none;
+}
+
+.search-window a {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    color: black;
+    transition: background-color 0.5s;
+}
+
+.search-window a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.search-window a+a {
+    border-top: 1px solid var(--main-background);
+}
+
+.search-window img {
+    height: 2rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+nav {
+    position: fixed;
+    bottom: 0rem;
+    left: 0rem;
+    right: 0rem;
+    background-color: var(--main-background);
+    box-shadow: black 2px 2px 4px;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav svg {
+    color: black;
+    height: 2rem;
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+#new-post svg {
+    margin-right: 0rem;
+    margin-top: 0rem;
+}
+
+#new-post {
+    position: relative;
+    top: -1rem;
+    background-color: var(--main-background);
+    box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 2px;
+    border-radius: 50%;
+    height: 3em;
+    width: 3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+
+#new-post:hover {
+    transform: scale(1.1);
+}
+
+
+/***************************************************************************************************************************************
+NOTIFICATIONS
+***********************************************************************************************************************************/
+
+.flying-notifications-container {
+    z-index: 1;
+    position: fixed;
+    bottom: 5rem;
+    right: 1rem;
+}
+
+.flying-notifications-container .flying-notifications {
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 2px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 1rem;
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+
+.flying-notifications-container .flying-notifications:hover {
+    background-color: var(--main-background);
+}
+
+/***************************************************************************************************************************************
+WELCOME
+***********************************************************************************************************************************/
+
+.welcome-card {
+    background-color: white;
+    max-width: 50rem;
+    min-width: 20rem;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 2px;
+    margin: 1rem auto;
+    padding: 1rem;
+    text-align: center;
+}
+
+.welcome-card form {
+    width: 100%;
+    padding: 0.7em;
+}
+
+.welcome-card input {
+    background-color: var(--main-background);
+    margin: 0.5rem 0;
+    border-radius: 1.5em;
+    border: 0px;
+    height: 2em;
+    width: 100%;
+    padding: 1.5em;
+
+}
+
+.submit input {
+    background-color: #1D7BE0;
+    border-radius: 1.5em;
+    border: 0px;
+    width: 100%;
+    padding: 0.5rem;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+
+.submit input:hover {
+    background-color: #1863b2;
+}
+
+/***************************************************************************************************************************************
+DASHBOARD
+***********************************************************************************************************************************/
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.dashboard-container>div {
+    margin: 1rem;
+}
+
+.vertical-border {
+    height: 90vh;
+    border-left: 1px solid grey;
+}
+
+
+/**************************************************
+article-form
+*************************************************/
+
+.art-form {
+    background-color: white;
+    max-width: 50rem;
+    min-width: 20rem;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 2px;
+    margin: 1rem auto;
+    z-index: 3;
+    position: fixed;
+    top: 20%;
+}
+
+.article-form form {
+    width: 100%;
+    padding: 0.7em;
+}
+
+.article-form textarea {
+    background-color: var(--main-background);
+    border-radius: 1.5em;
+    border: 0px;
+    height: 2em;
+    width: 100%;
+    padding: 1.5em;
+    height: 6rem;
+}
+
+.article-form .media-inputs {
+    display: flex;
+}
+
+.article-form input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    height: 2.5rem;
+    left: 0rem;
+    top: 0rem;
+    cursor: pointer;
+}
+
+.article-form .media-inputs button {
+    margin-bottom: 0.5em;
+    background-color: #588ec4;
+    position: relative;
+    cursor: pointer;
+}
+
+.article-form .media-inputs button+button {
+    margin-left: 0.5em;
+}
+
+.article-form input,
+.article-form button {
+    background-color: #1D7BE0;
+    border-radius: 1.5em;
+    border: 0px;
+    width: 100%;
+    padding: 0.5rem;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: background-color 0.5s;
+}
+
+.article-form input:hover,
+.article-form button:hover {
+    background-color: #1863b2;
+    cursor: pointer;
+}
+
+.backlay {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/**************************************************
+article
+*************************************************/
+
+.post {
+    background-color: white;
+    max-width: 50rem;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 2px;
+    margin: 1rem auto;
+}
+
+.post .post-head {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--main-background);
+    line-height: 1.5em;
+    padding: 0.7em;
+}
+
+.post .post-head-left {
+    display: flex;
+    align-items: center;
+}
+
+.post .post-head-right {
+    display: flex;
+}
+
+.post .post-head-right form,
+.post .post-head-right button,
+.comment-container form,
+.comment-container button {
+    margin: 0px;
+    padding: 0px;
+    background-color: inherit;
+    border: 0px;
+}
+
+.post .post-head a {
+    height: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.post .post-head img {
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+    margin-right: 0.7em;
+}
+
+.post svg {
+    color: black;
+    height: 1rem;
+    transition: 1s;
+    cursor: pointer;
+}
+
+.post .post-head svg {
+    margin-left: 1rem;
+    height: 1.2rem;
+}
+
+.post svg:hover {
+    height: 1.4rem;
+}
+
+.post form svg:hover {
+    color: red;
+}
+
+.post .post-text {
+    margin: 0 0.7em;
+}
+
+/***************MEDIA***************/
+
+.post .post-media {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post .post-media img {
+    object-fit: cover;
+    width: 100%;
+    max-height: 50rem;
+
+    transition: height 0.5s;
+}
+
+.post .post-media audio {
+    margin-bottom: 0.7rem;
+    opacity: 0.7;
+    transition: opacity 0.5s;
+}
+
+.post .post-media audio:hover {
+    opacity: 0.8;
+}
+
+.post .post-media .with-image {
+    margin-bottom: 0rem;
+    position: absolute;
+    margin: auto;
+    width: 80%;
+}
+
+/***************COMMENT***************/
+
+.post .post-comments {
+    border-top: 1px solid var(--main-background);
+    max-height: 40rem;
+    overflow: scroll;
+    transition: height 0.5s;
+    position: relative;
+}
+
+.post .post-comments::-webkit-scrollbar {
+    display: none;
+}
+
+.post .comment-container {
+    display: flex;
+    margin: 0.7rem;
+}
+
+.post .comment-container img {
+    height: 2em;
+    width: 2em;
+    border-radius: 50%;
+}
+
+.post .comment-container .comment-sub-container {
+    margin-left: 0.5rem;
+}
+
+.post .post-comments .comment {
+    background-color: var(--main-background);
+    border-radius: 1em;
+    padding: 0.5rem;
+    line-height: 1.5;
+}
+
+.post .post-comments time {
+    font-size: 0.8em;
+    line-height: 0;
+    opacity: 0.5;
+}
+
+.post .post-comments .comment .comment-head {
+    display: flex;
+    font-size: 0.8em;
+}
+
+.post .comment-container form {
+    width: 2rem;
+}
+
+.post .comment-container svg {
+    color: black;
+    height: 0.8rem;
+    transition: 1s;
+    cursor: pointer;
+}
+
+.post .comment-container svg:hover {
+    color: red;
+    height: 1rem;
+}
+
+.post form {
+    width: 100%;
+    padding: 0.7em;
+}
+
+.post input {
+    background-color: var(--main-background);
+    border-radius: 1.5em;
+    border: 0px;
+    height: 2em;
+    width: 100%;
+    padding: 1.5em;
+
+}
+
+
+/**********DISPLAY COMMENT ***********/
+
+.display-comment {
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+    right: 0rem;
+    height: 6rem;
+    background: rgb(150, 150, 150);
+    background: linear-gradient(0deg, rgba(150, 150, 150, 0) 0%, white 56%);
+}
+
+.display-comment p {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.display-comment p:hover {
+    text-decoration: underline;
+}
+
+
+
+/***************************************************************************************************************************************
+PROFILE
+***********************************************************************************************************************************/
+
+.profile-card {
+    background-color: white;
+    max-width: 50rem;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 2px;
+    margin: 1rem auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-card .modify {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.profile-card .modify svg {
+
+    height: 3rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    border-radius: 50%;
+    opacity: 0.6;
+    transition: opacity 0.5s;
+    z-index: 1;
+}
+
+.profile-card .modify svg:hover {
+    opacity: 1;
+}
+
+/******IMAGE*****/
+
+.profile-card .banner-pic img {
+    object-fit: cover;
+    width: 100%;
+    height: 13em;
+}
+
+.profile-card .profile-pic {
+    position: absolute;
+    top: 8em;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+    background-color: white;
+    padding: 0.5em;
+}
+
+.profile-card .profile-pic img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+/**********MAIN***********/
+
+.profile-card .main {
+    display: flex;
+    justify-content: space-between;
+    height: 4em;
+}
+
+.profile-card .main .side {
+    text-align: center;
+    width: 40%;
+    padding: 0 1rem;
+}
+
+.profile-card .main .center {
+    width: 10em;
+}
+
+/***********FOOTER***********/
+
+.profile-card .footer {
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+}
+
+
+/*************************************************EDIT PROFILE****************************************************/
+
+.profile-card input[type="file"] {
+    z-index: 1;
+    padding: 1em;
+}
+
+.profile-card textarea {
+    width: 80%;
+    height: 10em;
+}
+
+
+
+/***************************************************************************************************************************************
+FOOTER
+***********************************************************************************************************************************/
+
+footer {
+    margin: 1rem 4rem;
+    padding: 1rem 1rem 4rem;
+    border-top: 1px solid grey;
+    text-align: center;
+    font-size: 1rem;
+    opacity: 0.5;
+}
+
+
+
+@media screen and (min-width: 600px) {
+
+
+
+    nav {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0);
+        box-shadow: black 0px 0px 0px;
+    }
+
+    nav svg {
+        color: white;
+        margin-left: 0.5rem;
+    }
+
+    header form {
+        max-width: 20rem;
+        padding: 0rem;
+    }
+
+    .search-window {
+        top: 4rem;
+    }
+
+    #new-post {
+        display: none;
+    }
+
+    .art-form {
+        position: relative;
+        top: 0rem;
+        display: block;
+        z-index: 0;
+    }
+
+    .article-form {
+        position: relative;
+        top: 0rem;
+        display: block;
+    }
+
+    .backlay {
+        display: none;
+    }
+
+}
+
+
+@media screen and (min-width: 850px) {
+
+    h1 {
+        display: inline;
+    }
+
+    .dashboard {
+        display: flex;
+        justify-content: center;
+        position: relative;
+    }
+
+    .dashboard>div+div {
+        margin-left: 1rem;
+    }
+    .art-form {
+        position: sticky;
+        top: 1rem;
+
+    }
+}
