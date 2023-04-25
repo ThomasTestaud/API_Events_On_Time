@@ -18,9 +18,9 @@ if (array_key_exists('route', $_GET)) {
             $controller = new Models\Articles();
             $result = $controller->getAllArticles();
             var_dump($result);
-            foreach ($result as $res) {
-                echo $res;
-            }
+            header('Content-Type: application/json');
+            echo $result;
+            return json_encode($result);
             break;
 
         default:
