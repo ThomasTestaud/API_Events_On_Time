@@ -17,9 +17,7 @@ class Database
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
             ]);
         } catch (\PDOException $e) {
-            //redirique erreur 404
             echo 'error at connection to DDB';
-            //die();
         }
     }
 
@@ -34,33 +32,5 @@ class Database
         $query = $this->bdd->prepare($req);
         $query->execute($params);
         return $query->fetchAll();
-    }
-
-    protected function getAll($req, $params = [])
-    {
-        $req = "SELECT * FROM `compt`";
-        $query = $this->bdd->prepare($req);
-        $query->execute($params);
-        return $query->fetchAll();
-    }
-
-    protected function findOne($req, $params = [])
-    {
-        $query = $this->bdd->prepare($req);
-        $query->execute($params);
-        return $query->fetch();
-    }
-
-    protected function createNew($req, $params = [])
-    {
-        $query = $this->bdd->prepare($req);
-        $query->execute($params);
-        return $this->bdd->lastInsertId();
-    }
-
-    protected function update($req, $params = [])
-    {
-        $query = $this->bdd->prepare($req);
-        $query->execute($params);
     }
 }
