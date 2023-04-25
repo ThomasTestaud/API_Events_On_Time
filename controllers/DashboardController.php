@@ -2,21 +2,17 @@
 
 namespace Controllers;
 
-class DashboardController {
-    
-    public function displayDashboard($articles_data): void
+class DashboardController
+{
+
+    public function displayDashboard(): void
     {
-        //Verify user is connected
-        $model = new \Models\Users();
-        $model->isConnected();
-        
-        //Sort out data to be redable for the template
-        $articles = $articles_data[0];
-        $comments = $articles_data[2];
-        
+        echo 'hey';
+        $model = new \Models\Articles();
+        var_dump($model->getAllArticles());
+
         //Displaying the template
         $template = "dashboard.phtml";
         include_once 'views/layout.phtml';
     }
-
 }
