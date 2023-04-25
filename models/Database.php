@@ -18,7 +18,7 @@ class Database
             ]);
         } catch (\PDOException $e) {
             //redirique erreur 404
-            //echo 'erreur 404';
+            echo 'error at connection to DDB';
             //die();
         }
     }
