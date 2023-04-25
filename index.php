@@ -15,12 +15,11 @@ if (array_key_exists('route', $_GET)) {
     switch ($_GET['route']) {
 
         case 'api':
-            $controller = new Models\Articles();
-            $result = $controller->getAllArticles();
-            var_dump($result);
+            $controller = new Models\Database();
+            $result = $controller->getAll(1);
+            $json = json_encode($result);
             header('Content-Type: application/json');
-            echo $result;
-            return json_encode($result);
+            echo ($json);
             break;
 
         default:
