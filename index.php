@@ -1,6 +1,15 @@
 <?php
 
-session_start();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    echo 'post<br>';
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    echo 'get<br>';
+} elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    echo 'put<br>';
+} else {
+    echo 'else<br>';
+}
+
 
 
 spl_autoload_register(function ($class) {
@@ -17,6 +26,7 @@ if (array_key_exists('route', $_GET)) {
             $result = $controller->getAllComp($_GET['user']);
             $json = json_encode($result);
             header('Content-Type: application/json');
+            header("Access-Control-Allow-Origin: *");
             echo ($json);
             break;
 
