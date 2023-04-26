@@ -8,7 +8,7 @@ spl_autoload_register(function ($class) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo 'post<br>';
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    echo 'get<br>';
+    //echo 'get<br>';
     $controller = new Models\Database();
     $result = $controller->getAllComp($_GET['user']);
     $json = json_encode($result);
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-
+/*
 //Router
 if (array_key_exists('route', $_GET)) {
 
@@ -47,3 +47,4 @@ if (array_key_exists('route', $_GET)) {
     header('Location: index.php?route=api');
     exit;
 }
+*/
