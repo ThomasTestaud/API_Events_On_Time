@@ -1,9 +1,20 @@
 <?php
 
+spl_autoload_register(function ($class) {
+    require_once lcfirst(str_replace('\\', '/', $class)) . '.php';
+});
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo 'post<br>';
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo 'get<br>';
+    $controller = new Models\Database();
+    $result = $controller->getAllComp($_GET['user']);
+    $json = json_encode($result);
+    header('Content-Type: application/json');
+    header("Access-Control-Allow-Origin: *");
+    echo ($json);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     echo 'put<br>';
 } else {
@@ -12,9 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-spl_autoload_register(function ($class) {
-    require_once lcfirst(str_replace('\\', '/', $class)) . '.php';
-});
 
 //Router
 if (array_key_exists('route', $_GET)) {
