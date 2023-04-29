@@ -33,4 +33,19 @@ class Database
         $query->execute($params);
         return $query->fetchAll();
     }
+
+    public function postComp($user_id, $comp, $comp_desc)
+    {
+        $req = "INSERT INTO `compt`(`comp`, `comp_description`, `user_id`) 
+                            VALUES (:comp, :comp_desc, :user_id)";
+
+        $params = [
+            'user_id' => $user_id,
+            'comp' => $comp,
+            'comp_description' => $comp_desc,
+        ];
+
+        $query = $this->bdd->prepare($req);
+        $query->execute($params);
+    }
 }
