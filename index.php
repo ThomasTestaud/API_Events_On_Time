@@ -18,6 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
     $content = file_get_contents("php://input");
     $data = json_decode($content, true);
+    /*
+    $user_id = $data['user_id'];
+    $comp = $data['comp'];
+    $comp_desc = $data['comp_desc'];
+
+    $DDB = new Models\Database();
+    $DDB->postComp($user_id, $comp, $comp_desc);
+*/
+    //$json = json_encode('Database has been updated');
 
     $json = json_encode($data["body"]);
     echo ($json);
