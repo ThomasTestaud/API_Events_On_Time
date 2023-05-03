@@ -19,14 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     $content = file_get_contents("php://input");
     $data = json_decode($content, true);
 
-    $user_id = $data['user_id'];
-    $comp = $data['comp'];
-    $comp_desc = $data['comp_desc'];
-
-    $DDB = new Models\Database();
-    $result = $DDB->postComp($user_id, $comp, $comp_desc);
-
-    $json = json_encode('Database has been updated');
+    $json = json_encode($data["body"]);
     echo ($json);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -37,8 +30,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     echo ($json);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
-    $json = json_encode('put<br>');
-    echo ($json);
+    //Decode JSON
+    $content = file_get_contents("php://input");
+    $data = json_decode($content, true);
+    //Sort data
+    $skillTitle = $data['skillTitle'];
+    $skillDescription = $data['skillDescription'];
+    $skillId = $data['skillId'];
+
+    //Call method
+    $method = new Models\Database();
+    $method->updateSkill($skillId, $skillTitle, $skillDescription);
+
+    //Debug lines
+    //$json = json_encode($skillId);
+    //echo ($json);
 } else {
 
     $json = json_encode('else<br>');

@@ -48,4 +48,21 @@ class Database
         $query = $this->bdd->prepare($req);
         $query->execute($params);
     }
+
+    public function updateSkill($id, $skillTitle, $skillDescription)
+    {
+        $req = "UPDATE `compt` SET 
+                `comp`= :skillTitle,
+                `comp_description`= :skillDescription
+                WHERE `id`= :id";
+
+        $params = [
+            'id' => $id,
+            'skillTitle' => $skillTitle,
+            'skillDescription' => $skillDescription,
+        ];
+
+        $query = $this->bdd->prepare($req);
+        $query->execute($params);
+    }
 }
