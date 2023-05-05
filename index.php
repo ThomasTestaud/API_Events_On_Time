@@ -59,4 +59,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     $json = json_encode('else<br>');
     echo ($json);
 }
-//cc
