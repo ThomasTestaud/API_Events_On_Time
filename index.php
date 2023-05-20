@@ -16,46 +16,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $content = file_get_contents("php://input");
-    $data = json_decode($content, true);
-    /*
-    $user_id = $data['user_id'];
-    $comp = $data['comp'];
-    $comp_desc = $data['comp_desc'];
+    switch ($_GET['route']) {
 
-    $DDB = new Models\Database();
-    $DDB->postComp($user_id, $comp, $comp_desc);
-*/
-    //$json = json_encode('Database has been updated');
+        case 'event':
+            $controller = new Controllers\EventsController();
+            $controller->postNewEvent();
+            break;
 
-    $json = json_encode($data["body"]);
-    echo ($json);
+        case 'graph':
+            $controller = new Controllers\GraphsController();
+            $controller->createNewGraph();
+            break;
+    }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-    $controller = new Models\Database();
-    $result = $controller->getAllComp($_GET['user']);
+    switch ($_GET['route']) {
 
+        case 'list':
+            $controller = new Models\Database();
+            $result = $controller->getAllGraphsFromUser($_GET['userId']);
+            break;
+
+        case 'graph':
+            $controller = new Models\Database();
+            $result = $controller->getAllEventsFromGraph($_GET['graphId']);
+            break;
+    }
     $json = json_encode($result);
     echo ($json);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+} elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
-    //Decode JSON
-    $content = file_get_contents("php://input");
-    $data = json_decode($content, true);
-    //Sort data
-    $skillTitle = $data['skillTitle'];
-    $skillDescription = $data['skillDescription'];
-    $skillId = $data['skillId'];
+    switch ($_GET['route']) {
 
-    //Call method
-    $method = new Models\Database();
-    $method->updateSkill($skillId, $skillTitle, $skillDescription);
+        case 'event':
+            $controller = new Controllers\EventsController();
+            $controller->deleteLastEvent();
+            break;
 
-    //Debug lines
-    //$json = json_encode($skillId);
-    //echo ($json);
+        case 'graph':
+            $controller = new Controllers\GraphsController();
+            $controller->deleteGraph();
+            break;
+    }
 } else {
 
-    $json = json_encode('else<br>');
+    $json = json_encode('else   ');
     echo ($json);
 }

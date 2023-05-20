@@ -12,21 +12,36 @@ class Database
     public function __construct()
     {
         try {
-            $this->bdd = new \PDO('mysql:host=localhost;dbname=u112024506_general', 'u112024506_de', '7c~&6R0:Mp', [
+            $this->bdd = new \PDO('mysql:host=localhost:8889;dbname=events_on_time', 'root', 'root', [
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
             ]);
         } catch (\PDOException $e) {
-            echo 'error at connection to DDB';
+            echo 'error at connection to DDB   ' . $e->getMessage();
         }
     }
 
-    public function getAllComp($user_id)
+    public function postNewEvent($graphId, $x_value, $y_value)
     {
-        $req = "SELECT * FROM `compt` WHERE `user_id` = :user_id";
+        $req = "INSERT INTO `Events`(`graph_id`, `x_value`, `y_value`) 
+                VALUES (:graphId, :x_value , :y_value)";
 
         $params = [
-            'user_id' => $user_id
+            "graphId" => $graphId,
+            "x_value" => $x_value,
+            "y_value" => $y_value,
+        ];
+
+        $query = $this->bdd->prepare($req);
+        $query->execute($params);
+    }
+
+    public function getAllGraphsFromUser($userId)
+    {
+        $req = "SELECT name, type, id FROM `Graphs` WHERE user_id = :userId ORDER BY id DESC";
+
+        $params = [
+            "userId" => $userId
         ];
 
         $query = $this->bdd->prepare($req);
@@ -34,32 +49,59 @@ class Database
         return $query->fetchAll();
     }
 
-    public function postComp($user_id, $comp, $comp_desc)
+    public function getAllEventsFromGraph($graphId)
     {
-        $req = "INSERT INTO `compt`(`comp`, `comp_description`, `user_id`) 
-                            VALUES (:comp, :comp_desc, :user_id)";
+        $req = "SELECT x_value, y_value, Graphs.name as graphName, Graphs.type as graphType
+                FROM `Events` 
+                LEFT JOIN `Graphs`
+                ON Events.graph_id = Graphs.id
+                WHERE Events.graph_id = :graphId";
 
         $params = [
-            'user_id' => $user_id,
-            'comp' => $comp,
-            'comp_description' => $comp_desc,
+            "graphId" => $graphId
+        ];
+
+        $query = $this->bdd->prepare($req);
+        $query->execute($params);
+        return $query->fetchAll();
+    }
+
+    public function createNewGraph($userId, $graphName)
+    {
+        $req = "INSERT INTO `Graphs`(`user_id`, `name`) 
+                VALUES (:userId,:graphName)";
+
+        $params = [
+            "userId" => $userId,
+            "graphName" => $graphName
+        ];
+
+        $query = $this->bdd->prepare($req);
+        $query->execute($params);
+        // Retrieve the ID of the newly created line
+        $lastInsertedId = $this->bdd->lastInsertId();
+
+        return $lastInsertedId;
+    }
+
+    public function deleteGraph($graphId)
+    {
+        $req = "DELETE FROM `Graphs` WHERE id = :graphId";
+
+        $params = [
+            "graphId" => $graphId
         ];
 
         $query = $this->bdd->prepare($req);
         $query->execute($params);
     }
 
-    public function updateSkill($id, $skillTitle, $skillDescription)
+    public function deleteLastEvent($graphId)
     {
-        $req = "UPDATE `compt` SET 
-                `comp`= :skillTitle,
-                `comp_description`= :skillDescription
-                WHERE `id`= :id";
+        $req = "DELETE FROM `Events` WHERE graph_id = :graphId ORDER BY DESC LIMIT 1";
 
         $params = [
-            'id' => $id,
-            'skillTitle' => $skillTitle,
-            'skillDescription' => $skillDescription,
+            "graphId" => $graphId
         ];
 
         $query = $this->bdd->prepare($req);
