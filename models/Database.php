@@ -107,4 +107,35 @@ class Database
         $query = $this->bdd->prepare($req);
         $query->execute($params);
     }
+
+    public function connectUser($userName, $userPassword)
+    {
+        $req = "SELECT ..... FROM User WHERE .......";
+
+        $params = [
+            "userName" => $userName,
+            "userPassword" => $userPassword
+        ];
+
+        $query = $this->bdd->prepare($req);
+        $query->execute($params);
+        return $query->fetchAll();
+    }
+
+    public function createUser($userName, $userPassword)
+    {
+        $req = "INSERT .....";
+
+        $params = [
+            "userName" => $userName,
+            "userPassword" => $userPassword
+        ];
+
+        $query = $this->bdd->prepare($req);
+        $query->execute($params);
+        // Retrieve the ID of the newly created line
+        $lastInsertedId = $this->bdd->lastInsertId();
+
+        return $lastInsertedId;
+    }
 }
