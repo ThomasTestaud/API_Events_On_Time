@@ -15,6 +15,7 @@ class UsersController
         $model = new \Models\Database();
         $result = $model->connectUser($userName, $userPassword);
 
+        // Should return User_ID
         $json = json_encode($result);
         echo ($json);
     }
@@ -28,6 +29,11 @@ class UsersController
 
         $userName = $data['userName'];
         $userPassword = $data['userPassword'];
+
+        /*
+        $json = json_encode($data);
+        echo ($json);*/
+
 
         $model = new \Models\Database();
         $result = $model->createUser($userName, $userPassword);

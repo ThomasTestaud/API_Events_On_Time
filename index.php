@@ -8,6 +8,13 @@ header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
 
 
+
+//VERIFY USER
+
+
+
+
+
 //ROUTER
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     // This is a preflight request
@@ -26,6 +33,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         case 'graph':
             $controller = new Controllers\GraphsController();
             $controller->createNewGraph();
+            break;
+
+        case 'connect':
+            $controller = new Controllers\UsersController();
+            $controller->connectUser();
+            break;
+
+        case 'user':
+            $controller = new Controllers\UsersController();
+            $controller->createUser();
             break;
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
