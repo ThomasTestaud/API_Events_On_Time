@@ -9,11 +9,6 @@ header("Access-Control-Allow-Origin: *");
 
 
 
-//VERIFY USER
-
-
-
-
 
 //ROUTER
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
