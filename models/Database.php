@@ -49,15 +49,16 @@ class Database
         return $query->fetchAll();
     }
 
-    public function getAllEventsFromGraph($graphId)
+    public function getAllEventsFromGraph($userId, $graphId)
     {
         $req = "SELECT x_value, y_value, Graphs.name as graphName, Graphs.type as graphType
                 FROM `Events` 
-                LEFT JOIN `Graphs`
+                INNER JOIN `Graphs`
                 ON Events.graph_id = Graphs.id
-                WHERE Events.graph_id = :graphId";
+                WHERE Events.graph_id = :graphId AND Graphs.user_id = :userId";
 
         $params = [
+            "userId" => $userId,
             "graphId" => $graphId
         ];
 

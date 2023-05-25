@@ -21,8 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     switch ($_GET['route']) {
 
         case 'event':
+            $authController = new Controllers\AuthorisationController();
+            $decoded = $authController->authenticate(); // Authenticate the user before processing the request
+
+            $userId = $decoded->userId->id;
+
             $controller = new Controllers\EventsController();
-            $controller->postNewEvent();
+            $controller->postNewEvent($userId);
             break;
 
         case 'graph':
@@ -45,17 +50,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     switch ($_GET['route']) {
 
         case 'list':
+
+            $authController = new Controllers\AuthorisationController();
+            $decoded = $authController->authenticate(); // Authenticate the user before processing the request
+
+            $userId = $decoded->userId->id;
+
             $controller = new Models\Database();
-            $result = $controller->getAllGraphsFromUser($_GET['userId']);
+            $result = $controller->getAllGraphsFromUser($userId);
+            $json = json_encode($result);
+            echo ($json);
             break;
 
         case 'graph':
+            $authController = new Controllers\AuthorisationController();
+            $decoded = $authController->authenticate(); // Authenticate the user before processing the request
+
+            $userId = $decoded->userId->id;
+            //$json = json_encode($userId);
+            //echo ($json);
+            //break;
+
             $controller = new Models\Database();
-            $result = $controller->getAllEventsFromGraph($_GET['graphId']);
+            $result = $controller->getAllEventsFromGraph($userId, $_GET['graphId']);
+            $json = json_encode($result);
+            echo ($json);
             break;
     }
-    $json = json_encode($result);
-    echo ($json);
 } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
     switch ($_GET['route']) {

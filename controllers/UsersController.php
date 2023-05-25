@@ -4,6 +4,7 @@ namespace Controllers;
 
 class UsersController
 {
+
     public function connectUser()
     {
         $content = file_get_contents("php://input");
@@ -13,11 +14,18 @@ class UsersController
         $userPassword = $data['userPassword'];
 
         $model = new \Models\Database();
-        $result = $model->connectUser($userName, $userPassword);
+        $result = $model->connectUser($userName, $userPassword); //Return userId is success, else return false
 
+        if (!$result) {
+            $json = json_encode($result);
+            echo ($json);
+        } else {
+            $authController = new \Controllers\AuthorisationController();
+            $authController->connectUser($userName, $userPassword, $result);
+        }
         // Should return User_ID
-        $json = json_encode($result);
-        echo ($json);
+        //$json = json_encode($result);
+        //echo ($json);
     }
 
     public function createUser()

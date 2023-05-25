@@ -4,19 +4,21 @@ namespace Controllers;
 
 class EventsController
 {
-    public function getEvents($graphId)
+
+    public function getEvents($userId, $graphId)
     {
         $model = new \Models\Database();
-        $result = $model->getAllEventsFromGraph($graphId);
+        $result = $model->getAllEventsFromGraph($userId, $graphId);
 
         $json = json_encode($result);
         echo ($json);
     }
 
-    public function postNewEvent()
+    public function postNewEvent($userId)
     {
         $content = file_get_contents("php://input");
         $data = json_decode($content, true);
+
 
         $graphId = $data['graphId'];
         $graphType = $data['graphType'];
@@ -26,7 +28,7 @@ class EventsController
         $model = new \Models\Database();
         $model->postNewEvent($graphId, $x_value, $y_value);
 
-        $this->getEvents($graphId);
+        $this->getEvents($userId, $graphId);
     }
 
     public function deleteLastEvent()
