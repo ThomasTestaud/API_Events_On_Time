@@ -11,13 +11,12 @@ class GraphsController
         return $model->getAllEventsFromGraph($_GET['graphId']);
     }
 
-    public function createNewGraph()
+    public function createNewGraph($userId)
     {
         $content = file_get_contents("php://input");
         $data = json_decode($content, true);
 
         $graphName = $data['graphName'];
-        $userId = $_GET['userId'];
 
         $model = new \Models\Database();
         $result = $model->createNewGraph($userId, $graphName);

@@ -31,8 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             break;
 
         case 'graph':
+            $authController = new Controllers\AuthorisationController();
+            $decoded = $authController->authenticate(); // Authenticate the user before processing the request
+
+            $userId = $decoded->userId->id;
+
             $controller = new Controllers\GraphsController();
-            $controller->createNewGraph();
+            $controller->createNewGraph($userId);
             break;
 
         case 'connect':

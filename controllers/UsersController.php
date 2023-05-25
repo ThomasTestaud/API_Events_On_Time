@@ -42,11 +42,14 @@ class UsersController
         $json = json_encode($data);
         echo ($json);*/
 
-
         $model = new \Models\Database();
         $result = $model->createUser($userName, $userPassword);
+        //echo $result;
+        //exit;
+        $authController = new \Controllers\AuthorisationController();
+        $authController->connectUser($userName, $userPassword, $result);
 
-        $json = json_encode($result);
-        echo ($json);
+        //$json = json_encode($result);
+        //echo ($json);
     }
 }
