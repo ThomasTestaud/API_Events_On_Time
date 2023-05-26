@@ -11,17 +11,28 @@ class UsersController
         $data = json_decode($content, true);
 
         $userName = $data['userName'];
-        $userPassword = $data['userPassword'];
+        $clearPassword = $data['userPassword'];
 
         $model = new \Models\Users();
-        $result = $model->connectUser($userName, $userPassword); //Return userId is success, else return false
+        $data = $model->connectUser($userName); //Return userId and hashedPassword
 
-        if (!$result) {
-            $json = json_encode($result);
+        $userId = $data['userId'];
+        $hashedPassword = $data['hashedPassword'];
+
+        if (password_verify($clearPassword, $hashedPassword)) {
+            $validate = true;
+        } else {
+            $validate = false;
+        }
+
+        $userId = ['id' => $userId]; // Format same as other methods
+
+        if (!$validate) {
+            $json = json_encode($validate);
             echo ($json);
         } else {
             $authController = new \Controllers\AuthorisationController();
-            $authController->connectUser($userName, $userPassword, $result);
+            $authController->connectUser($userName, $clearPassword, $userId);
         }
     }
 
@@ -35,8 +46,10 @@ class UsersController
         $userName = $data['userName'];
         $userPassword = $data['userPassword'];
 
+        $hashedPassword = password_hash($userPassword, PASSWORD_DEFAULT);
+
         $model = new \Models\Users();
-        $result = $model->createUser($userName, $userPassword);
+        $result = $model->createUser($userName, $hashedPassword);
 
         $result = ['id' => $result]; // Format same as other methods
 

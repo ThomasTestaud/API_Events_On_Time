@@ -5,13 +5,12 @@ namespace Models;
 
 class Users extends Database
 {
-    public function connectUser($userName, $userPassword)
+    public function connectUser($userName) //Return userId and hashedPassword
     {
-        $req = "SELECT id FROM `User` WHERE username = :userName AND password = :userPassword";
+        $req = "SELECT id as userId, password as hashedPassword FROM `User` WHERE username = :userName";
 
         $params = [
-            "userName" => $userName,
-            "userPassword" => $userPassword
+            "userName" => $userName
         ];
 
         $query = $this->bdd->prepare($req);

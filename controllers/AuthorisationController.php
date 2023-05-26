@@ -25,7 +25,7 @@ class AuthorisationController
 
         // Return the token in JSON format
         header('Content-Type: application/json');
-        echo json_encode(array('token' => $token, 'userId' => $userId));
+        echo json_encode(array('token' => $token, 'auth' => true));
         exit;
     }
 

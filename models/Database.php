@@ -20,7 +20,7 @@ class Database
             echo 'error at connection to DDB   ' . $e->getMessage();
         }
     }
-
+    /*
     public function postNewEvent($graphId, $x_value, $y_value)
     {
         $req = "INSERT INTO `Events`(`graph_id`, `x_value`, `y_value`) 
@@ -143,4 +143,5 @@ class Database
 
         return $lastInsertedId;
     }
+    */
 }
