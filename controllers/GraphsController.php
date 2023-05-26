@@ -8,9 +8,12 @@ class GraphsController
     public function getAllGraphsFromUser($userId)
     {
         $model = new \Models\Graphs();
-        $result = $model->getAllGraphsFromUser($userId);
+        $data = $model->getAllGraphsFromUser($userId);
 
-        $json = json_encode($result);
+        $view = new \Views\GraphList();
+        $data = $view->prepareDataForOutput($data);
+
+        $json = json_encode($data);
         echo ($json);
         exit;
     }

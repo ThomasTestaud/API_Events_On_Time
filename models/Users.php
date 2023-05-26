@@ -36,4 +36,17 @@ class Users extends Database
 
         return $lastInsertedId;
     }
+
+    public function usernameExist($userName)
+    {
+        $req = "SELECT username FROM `User` WHERE username = :userName";
+
+        $params = [
+            "userName" => $userName
+        ];
+
+        $query = $this->bdd->prepare($req);
+        $query->execute($params);
+        return $query->fetch();
+    }
 }

@@ -7,7 +7,13 @@ class Graphs extends Database
 {
     public function getAllGraphsFromUser($userId)
     {
-        $req = "SELECT name, type, id FROM `Graphs` WHERE user_id = :userId ORDER BY id DESC";
+        $req = "SELECT Graphs.name, Graphs.type, Graphs.id, COUNT(Events.id) AS events,
+        MIN(Events.x_value) AS first_event, MAX(Events.x_value) AS last_event
+        FROM Graphs
+        JOIN Events ON Graphs.id = Events.graph_id
+        WHERE user_id = :userId
+        GROUP BY Graphs.name, Graphs.type, Graphs.id
+        ORDER BY Graphs.id DESC;";
 
         $params = [
             "userId" => $userId

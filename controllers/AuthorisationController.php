@@ -9,7 +9,7 @@ use \Firebase\JWT\JWT;
 
 class AuthorisationController
 {
-    private $secretKey = 'eB38DDs7KKwP5532szZeZsZs'; // Replace with your own secret key
+    private $secretKey = 'eB38DDs7KKwP5532szZeZsZzeCCs'; // Replace with your own secret key
 
 
     public function connectUser($username, $password, $userId)
@@ -67,11 +67,3 @@ class AuthorisationController
         return null;
     }
 }
-
-// Create an instance of the AuthorisationController
-//Put this code on the top of each route unless for the connexion one
-//$authController = new AuthorisationController();
-//$authController->authenticate(); // Authenticate the user before processing the request
-
-// Rest of your existing code...
-// ...

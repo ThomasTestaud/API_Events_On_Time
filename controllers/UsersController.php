@@ -38,8 +38,7 @@ class UsersController
 
     public function createUser()
     {
-        // Check if username don't already exists
-
+        // Retrive data
         $content = file_get_contents("php://input");
         $data = json_decode($content, true);
 
@@ -48,12 +47,22 @@ class UsersController
 
         $hashedPassword = password_hash($userPassword, PASSWORD_DEFAULT);
 
+        // Check if username don't already exists
         $model = new \Models\Users();
-        $result = $model->createUser($userName, $hashedPassword);
+        $result = $model->usernameExist($userName);
 
-        $result = ['id' => $result]; // Format same as other methods
+        if (!$result) { // If the DDB returns nothing (false)
 
-        $authController = new \Controllers\AuthorisationController();
-        $authController->connectUser($userName, $userPassword, $result);
+            $result = $model->createUser($userName, $hashedPassword); // Create the account
+
+            $result = ['id' => $result]; // Format same as other methods
+
+            $authController = new \Controllers\AuthorisationController();
+            $authController->connectUser($userName, $userPassword, $result);
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(array('auth' => false));
+            exit;
+        }
     }
 }

@@ -10,7 +10,10 @@ class EventsController
         $model = new \Models\Events();
         $result = $model->getAllEventsFromGraph($userId, $graphId);
 
-        $json = json_encode($result);
+        $view = new \Views\Graph();
+        $data = $view->prepareDataForOutput($result);
+
+        $json = json_encode($data);
         echo ($json);
         exit;
     }
