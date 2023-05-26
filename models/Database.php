@@ -12,7 +12,7 @@ class Database
     public function __construct()
     {
         try {
-            $this->bdd = new \PDO('mysql:host=localhost:8889;dbname=events_on_time', 'root', 'root', [
+            $this->bdd = new \PDO('mysql:host=localhost;dbname=u112024506_events_on_time', 'u112024506_Toto', '=4ae^LZD>=eU', [
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
             ]);
