@@ -7,11 +7,12 @@ class EventsController
 
     public function getEvents($userId, $graphId)
     {
-        $model = new \Models\Database();
+        $model = new \Models\Events();
         $result = $model->getAllEventsFromGraph($userId, $graphId);
 
         $json = json_encode($result);
         echo ($json);
+        exit;
     }
 
     public function postNewEvent($userId)
@@ -19,21 +20,19 @@ class EventsController
         $content = file_get_contents("php://input");
         $data = json_decode($content, true);
 
-
         $graphId = $data['graphId'];
-        $graphType = $data['graphType'];
-        $x_value = time();
+        $x_value = time(); // Create the timestemp of the event
         $y_value = 1;
 
-        $model = new \Models\Database();
+        $model = new \Models\Events();
         $model->postNewEvent($graphId, $x_value, $y_value);
 
         $this->getEvents($userId, $graphId);
     }
 
-    public function deleteLastEvent()
+    public function deleteLastEvent($userId)
     {
-        $model = new \Models\Database();
-        return $model->deleteLastEvent($_GET['graphId']);
+        $model = new \Models\Events();
+        return $model->deleteLastEvent($userId, $_GET['graphId']);
     }
 }

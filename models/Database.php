@@ -85,11 +85,12 @@ class Database
         return $lastInsertedId;
     }
 
-    public function deleteGraph($graphId)
+    public function deleteGraph($userId, $graphId)
     {
-        $req = "DELETE FROM `Graphs` WHERE id = :graphId";
+        $req = "DELETE FROM `Graphs` WHERE id = :graphId AND user_id = :userId";
 
         $params = [
+            "userId" => $userId,
             "graphId" => $graphId
         ];
 
@@ -97,11 +98,12 @@ class Database
         $query->execute($params);
     }
 
-    public function deleteLastEvent($graphId)
+    public function deleteLastEvent($userId, $graphId)
     {
-        $req = "DELETE FROM `Events` WHERE graph_id = :graphId ORDER BY DESC LIMIT 1";
+        $req = "DELETE FROM `Events` INNER JOIN Graphs ON graph_id = Graphs.id WHERE graph_id = :graphId AND Graphs.user_id = :userId ORDER BY Events.id DESC LIMIT 1";
 
         $params = [
+            "userId" => $userId,
             "graphId" => $graphId
         ];
 

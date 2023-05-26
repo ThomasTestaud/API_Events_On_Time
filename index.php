@@ -7,7 +7,7 @@ spl_autoload_register(function ($class) {
 header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
 
-
+$authController = new Controllers\AuthorisationController();
 
 
 //ROUTER
@@ -21,20 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     switch ($_GET['route']) {
 
         case 'event':
-            $authController = new Controllers\AuthorisationController();
             $decoded = $authController->authenticate(); // Authenticate the user before processing the request
-
-            $userId = $decoded->userId->id;
+            $userId = $decoded->userId->id; // Extract userId
 
             $controller = new Controllers\EventsController();
             $controller->postNewEvent($userId);
             break;
 
         case 'graph':
-            $authController = new Controllers\AuthorisationController();
             $decoded = $authController->authenticate(); // Authenticate the user before processing the request
-
-            $userId = $decoded->userId->id;
+            $userId = $decoded->userId->id; // Extract userId
 
             $controller = new Controllers\GraphsController();
             $controller->createNewGraph($userId);
@@ -55,31 +51,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     switch ($_GET['route']) {
 
         case 'list':
-
-            $authController = new Controllers\AuthorisationController();
             $decoded = $authController->authenticate(); // Authenticate the user before processing the request
 
-            $userId = $decoded->userId->id;
 
-            $controller = new Models\Database();
+            $userId = $decoded->userId->id; // Extract userId
+
+
+            $controller = new Controllers\GraphsController();
             $result = $controller->getAllGraphsFromUser($userId);
-            $json = json_encode($result);
-            echo ($json);
             break;
 
         case 'graph':
-            $authController = new Controllers\AuthorisationController();
             $decoded = $authController->authenticate(); // Authenticate the user before processing the request
+            $userId = $decoded->userId->id; // Extract userId
 
-            $userId = $decoded->userId->id;
-            //$json = json_encode($userId);
-            //echo ($json);
-            //break;
-
-            $controller = new Models\Database();
-            $result = $controller->getAllEventsFromGraph($userId, $_GET['graphId']);
-            $json = json_encode($result);
-            echo ($json);
+            $controller = new Controllers\EventsController();
+            $result = $controller->getEvents($userId, $_GET['graphId']);
             break;
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
@@ -87,13 +74,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     switch ($_GET['route']) {
 
         case 'event':
+            $decoded = $authController->authenticate(); // Authenticate the user before processing the request
+            $userId = $decoded->userId->id; // Extract userId
+
             $controller = new Controllers\EventsController();
-            $controller->deleteLastEvent();
+            $controller->deleteLastEvent($userId);
             break;
 
         case 'graph':
+            $decoded = $authController->authenticate(); // Authenticate the user before processing the request
+            $userId = $decoded->userId->id; // Extract userId
+
             $controller = new Controllers\GraphsController();
-            $controller->deleteGraph();
+            $controller->deleteGraph($userId);
             break;
     }
 } else {

@@ -5,10 +5,14 @@ namespace Controllers;
 
 class GraphsController
 {
-    public function getGraph()
+    public function getAllGraphsFromUser($userId)
     {
-        $model = new \Models\Database();
-        return $model->getAllEventsFromGraph($_GET['graphId']);
+        $model = new \Models\Graphs();
+        $result = $model->getAllGraphsFromUser($userId);
+
+        $json = json_encode($result);
+        echo ($json);
+        exit;
     }
 
     public function createNewGraph($userId)
@@ -18,16 +22,16 @@ class GraphsController
 
         $graphName = $data['graphName'];
 
-        $model = new \Models\Database();
+        $model = new \Models\Graphs();
         $result = $model->createNewGraph($userId, $graphName);
 
-        // Send back the ID of the created list
-        echo $result;
+        echo $result; // Send back the ID of the created list
+        exit;
     }
 
-    public function deleteGraph()
+    public function deleteGraph($userId)
     {
-        $model = new \Models\Database();
-        $model->deleteGraph($_GET['graphId']);
+        $model = new \Models\Graphs();
+        $model->deleteGraph($userId, $_GET['graphId']);
     }
 }

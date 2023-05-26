@@ -13,7 +13,7 @@ class UsersController
         $userName = $data['userName'];
         $userPassword = $data['userPassword'];
 
-        $model = new \Models\Database();
+        $model = new \Models\Users();
         $result = $model->connectUser($userName, $userPassword); //Return userId is success, else return false
 
         if (!$result) {
@@ -23,9 +23,6 @@ class UsersController
             $authController = new \Controllers\AuthorisationController();
             $authController->connectUser($userName, $userPassword, $result);
         }
-        // Should return User_ID
-        //$json = json_encode($result);
-        //echo ($json);
     }
 
     public function createUser()
@@ -38,18 +35,12 @@ class UsersController
         $userName = $data['userName'];
         $userPassword = $data['userPassword'];
 
-        /*
-        $json = json_encode($data);
-        echo ($json);*/
-
-        $model = new \Models\Database();
+        $model = new \Models\Users();
         $result = $model->createUser($userName, $userPassword);
-        //echo $result;
-        //exit;
+
+        $result = ['id' => $result]; // Format same as other methods
+
         $authController = new \Controllers\AuthorisationController();
         $authController->connectUser($userName, $userPassword, $result);
-
-        //$json = json_encode($result);
-        //echo ($json);
     }
 }
