@@ -11,9 +11,9 @@ class Graph
 
         foreach ($data as $element) {
             $newData[] = [
+                'graphName' => htmlspecialchars($element['graphName']), // Sanitize the name
                 'x_value' => $element['x_value'],
                 'y_value' => $element['y_value'],
-                'graphName' => htmlspecialchars($element['graphName']) // Sanitize the name
             ];
         }
 
