@@ -8,7 +8,7 @@ class Events extends Database
     // GET
     public function getAllEventsFromGraph($userId, $graphId)
     {
-        $req = "SELECT x_value, y_value, Graphs.name as graphName, Graphs.type as graphType
+        $req = "SELECT Events.name, x_value, y_value, Graphs.name as graphName, Graphs.type as graphType
                 FROM `Events` 
                 INNER JOIN `Graphs`
                 ON Events.graph_id = Graphs.id
